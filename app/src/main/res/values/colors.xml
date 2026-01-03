@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_color">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#FF4081</color>
+    <color name="secondary_dark">#C60055</color>
+    <color name="secondary_light">#FF80AB</color>
+
+    <!-- Vendor Colors -->
+    <color name="lenovo_color">#E2231A</color>
+    <color name="asus_color">#00539B</color>
+    <color name="acer_color">#83B81A</color>
+    <color name="dell_color">#007DB8</color>
+    <color name="hp_color">#0096D6</color>
+    <color name="apple_color">#000000</color>
+
+    <!-- Basic Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#757575</color>
+    <color name="light_gray">#BDBDBD</color>
+    <color name="background">#F5F5F5</color>
+
+    <!-- Status Colors -->
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
+    <color name="yellow">#FFC107</color>
+    <color name="gold">#FFD700</color>
+
+    <!-- Dark Mode Colors -->
+    <color name="dark_background">#121212</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="dark_surface_variant">#2D2D2D</color>
+    <color name="dark_on_surface">#FFFFFF</color>
+    <color name="dark_on_surface_variant">#B0B0B0</color>
+</resources>

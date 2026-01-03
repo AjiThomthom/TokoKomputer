@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Toko Laptop PPC</string>
+    <string name="welcome_message">Selamat Datang di Aplikasi Toko Laptop PPC</string>
+    <string name="login">LOGIN</string>
+    <string name="phone_hint">Nomor HP</string>
+    <string name="name_hint">Nama Lengkap</string>
+    <string name="navigation_drawer_open">Buka menu navigasi</string>
+    <string name="navigation_drawer_close">Tutup menu navigasi</string>
+    <string name="account_info">Info Akun</string>
+    <string name="change_theme">Ubah Tema</string>
+    <string name="logout">Logout</string>
+    <string name="search_hint">Cari laptop, merek, atau spesifikasi...</string>
+    <string name="special_promo">🔥 Promo Spesial</string>
+    <string name="choose_brand">📱 Pilih Merek Laptop</string>
+    <string name="best_sellers">🏆 Laptop Terlaris</string>
+    <string name="about_store">ℹ️ Tentang Toko Laptop PPC</string>
+    <string name="store_description">Kami menyediakan laptop terbaru dari berbagai vendor dengan harga terbaik. Garansi resmi 2 tahun dan pengiriman ke seluruh Indonesia.</string>
+    <string name="full_specs">📊 Spesifikasi Lengkap</string>
+    <string name="product_description">📝 Deskripsi Produk</string>
+    <string name="add_to_cart">🛒 Tambah ke Keranjang</string>
+    <string name="buy_now">💳 Beli Sekarang</string>
+    <string name="save_changes">Simpan Perubahan</string>
+    <string name="change_photo">Ubah Foto</string>
+    <string name="back_to_home">Kembali ke Beranda</string>
+</resources>

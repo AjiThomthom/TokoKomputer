@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom attributes for our app -->
+    <attr name="colorBackground" format="reference|color" />
+    <attr name="colorOnBackground" format="reference|color" />
+    <attr name="colorSurface" format="reference|color" />
+    <attr name="colorOnSurface" format="reference|color" />
+    <attr name="colorOnSurfaceVariant" format="reference|color" />
+    <attr name="colorOutline" format="reference|color" />
+</resources>
