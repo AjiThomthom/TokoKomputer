@@ -6,18 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/background">
+    android:background="?android:attr/windowBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- App Bar dengan Gradient -->
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/profile_background"
             android:elevation="4dp">
 
             <androidx.appcompat.widget.Toolbar
@@ -29,379 +27,127 @@
                 app:titleTextColor="@color/white"
                 app:navigationIcon="@drawable/ic_menu" />
 
-            <!-- Welcome Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:background="?attr/colorPrimary">
 
                 <TextView
                     android:id="@+id/tv_user_name_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Halo, User!"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white" />
+                    android:text="Halo, Selamat Datang!"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Temukan laptop terbaik untuk kebutuhanmu"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="4dp" />
-
+                    android:text="Cari laptop impianmu hari ini"
+                    android:textColor="@color/primary_light"
+                    android:textSize="14sp" />
             </LinearLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Main Content -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <!-- Promo Banner -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔥 Promo Spesial"
+                    android:text="Pilih Brand"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="12dp"
-                    android:textColor="?attr/colorOnBackground" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:src="@color/primary_color"
-                    android:scaleType="centerCrop"
-                    android:background="@color/light_gray"
-                    android:layout_marginBottom="24dp"
-                    android:contentDescription="Promo Banner" />
-
-                <!-- Vendor Grid -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📱 Pilih Merek Laptop"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"
-                    android:textColor="?attr/colorOnBackground" />
-
-                <!-- Gunakan GridLayout dengan layout weight yang benar -->
-                <androidx.gridlayout.widget.GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:rowCount="3"
-                    android:layout_marginBottom="24dp">
-
-                    <!-- Lenovo Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_lenovo"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/lenovo_color"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:layout_columnWeight="1"
-                        app:layout_rowWeight="1"
-                        app:layout_gravity="fill">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_laptop_logo"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Lenovo"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- ASUS Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_asus"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/asus_color"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:layout_columnWeight="1"
-                        app:layout_rowWeight="1"
-                        app:layout_gravity="fill">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_laptop_logo"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ASUS"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Acer Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_acer"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/acer_color"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:layout_columnWeight="1"
-                        app:layout_rowWeight="1"
-                        app:layout_gravity="fill">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_laptop_logo"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Acer"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Dell Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_dell"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/dell_color"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:layout_columnWeight="1"
-                        app:layout_rowWeight="1"
-                        app:layout_gravity="fill">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_laptop_logo"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Dell"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- HP Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_hp"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/hp_color"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:layout_columnWeight="1"
-                        app:layout_rowWeight="1"
-                        app:layout_gravity="fill">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_laptop_logo"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="HP"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Apple Card -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/card_apple"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="4dp"
-                        app:cardBackgroundColor="@color/apple_color"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        app:layout_columnWeight="1"
-                        app:layout_rowWeight="1"
-                        app:layout_gravity="fill">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:padding="16dp">
-
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_laptop_logo"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Apple"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:layout_marginTop="8dp" />
-
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                </androidx.gridlayout.widget.GridLayout>
-
-                <!-- Best Sellers Section -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🏆 Laptop Terlaris"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp"
-                    android:textColor="?attr/colorOnBackground" />
+                    android:textColor="?attr/colorOnSurface" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_promo"
+                    android:id="@+id/rv_brands"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp" />
 
-                <!-- About Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paling Laris"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_best_sellers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="24dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_see_all"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lihat Semua Laptop ➔"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"
+                    app:rippleColor="?attr/colorPrimaryVariant" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    android:layout_marginBottom="32dp">
+                    app:cardBackgroundColor="?attr/colorSurface">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ℹ️ Tentang Toko Laptop PPC"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="8dp" />
+                        android:padding="16dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Kami menyediakan laptop terbaru dari berbagai vendor dengan harga terbaik. Garansi resmi 2 tahun dan pengiriman ke seluruh Indonesia."
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="4dp" />
+                            android:text="ℹ️ Tentang Toko Laptop PPC"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp"
+                            android:textColor="?attr/colorOnSurface" />
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kami menyediakan laptop-laptop original dan terbaru dari berbagai vendor dengan harga terbaik. Garansi resmi 2 tahun dan pengiriman ke seluruh Indonesia."
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4dp"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
     </LinearLayout>
 
-    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="?attr/colorSurface"
+        app:itemIconTint="?attr/colorOnSurface"
+        app:itemTextColor="?attr/colorOnSurface"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu" />
 

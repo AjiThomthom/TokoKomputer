@@ -45,7 +45,8 @@ public class CartManager {
 
     public void addToCart(Laptop laptop) {
         // Cek jika laptop sudah ada di cart
-        for (CartItem item : cartItems) {
+        for (int i = 0; i < cartItems.size(); i++) {
+            CartItem item = cartItems.get(i);
             if (item.getLaptop().getModel().equals(laptop.getModel())) {
                 item.increaseQuantity();
                 saveCartItems();
@@ -82,7 +83,7 @@ public class CartManager {
     }
 
     public ArrayList<CartItem> getCartItems() {
-        return cartItems;
+        return new ArrayList<>(cartItems); // Return copy untuk menghindari concurrent modification
     }
 
     public int getCartItemCount() {

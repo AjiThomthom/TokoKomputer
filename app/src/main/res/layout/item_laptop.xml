@@ -7,6 +7,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -15,14 +16,13 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Product Image -->
         <ImageView
             android:id="@+id/iv_laptop"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_laptop_placeholder"
-            android:background="@color/light_gray"
+            android:background="?attr/colorSurfaceVariant"
             android:layout_marginBottom="12dp" />
 
         <TextView
@@ -37,9 +37,6 @@
             android:textColor="@color/white"
             android:layout_marginBottom="8dp" />
 
-
-
-        <!-- Model Name -->
         <TextView
             android:id="@+id/tv_model"
             android:layout_width="match_parent"
@@ -49,11 +46,9 @@
             android:textStyle="bold"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
 
-
-        <!-- Rating -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,11 +72,9 @@
                 android:text="4.5"
                 android:textSize="12sp"
                 android:layout_marginStart="4dp"
-                android:textColor="@color/gray" />
-
+                android:textColor="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
-        <!-- Price -->
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
@@ -89,19 +82,16 @@
             android:text="Rp 0"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/primary_color"
+            android:textColor="?attr/colorPrimary"
             android:layout_marginBottom="8dp" />
 
-        <!-- Stock Info -->
         <TextView
             android:id="@+id/tv_stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Stok: 50"
             android:textSize="12sp"
-            android:textColor="@color/green" />
-
-
+            android:textColor="@color/secondary_color" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

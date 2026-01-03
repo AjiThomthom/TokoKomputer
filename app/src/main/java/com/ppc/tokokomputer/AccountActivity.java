@@ -1,111 +1,96 @@
 package com.ppc.tokokomputer;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 
 public class AccountActivity extends AppCompatActivity {
+    private static final int PICK_IMAGE_REQUEST = 101;
     private EditText etName, etPhone, etAddress;
-    private MaterialButton btnSave;
     private ImageView ivProfile;
+    private TextView tvMemberSince, tvTotalPurchase;
     private SharedPreferences sharedPreferences;
-    private TextView tvMemberSince, tvTotalPurchase, tvStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        boolean isDarkMode = sharedPreferences.getBoolean("dark_mode", false);
+        setTheme(isDarkMode ? R.style.Theme_TokoKomputer_Dark : R.style.Theme_TokoKomputer);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        // Inisialisasi SharedPreferences
-        sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-
-        // Inisialisasi view
+        ivProfile = findViewById(R.id.iv_profile);
         etName = findViewById(R.id.et_name);
         etPhone = findViewById(R.id.et_phone);
         etAddress = findViewById(R.id.et_address);
-        btnSave = findViewById(R.id.btn_save);
-        ivProfile = findViewById(R.id.iv_profile);
-
-        // Temukan TextView untuk info akun
         tvMemberSince = findViewById(R.id.tv_member_since);
         tvTotalPurchase = findViewById(R.id.tv_total_purchase);
-        tvStatus = findViewById(R.id.tv_status);
 
-        // Load data user
-        loadUserData();
+        loadData();
 
-        // Setup button listeners
-        btnSave.setOnClickListener(v -> saveUserData());
-
-        // Tombol ubah foto
-        findViewById(R.id.btn_change_photo).setOnClickListener(v -> {
-            Toast.makeText(this, "Fitur ubah foto akan datang", Toast.LENGTH_SHORT).show();
+        // Fitur Ganti Foto: Klik pada Ikon/Foto Profil
+        ivProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
         });
 
-        // Load gambar profil
-        Glide.with(this)
-                .load(R.drawable.ic_account)
-                .circleCrop()
-                .into(ivProfile);
+        findViewById(R.id.btn_save).setOnClickListener(v -> saveData());
     }
 
-    private void loadUserData() {
-        String name = sharedPreferences.getString("user_name", "");
-        String phone = sharedPreferences.getString("user_phone", "");
-        String address = sharedPreferences.getString("user_address", "Belum diisi");
+    private void loadData() {
+        etName.setText(sharedPreferences.getString("user_name", ""));
+        etPhone.setText(sharedPreferences.getString("user_phone", ""));
+        etAddress.setText(sharedPreferences.getString("user_address", ""));
 
-        etName.setText(name);
-        etPhone.setText(phone);
-        etAddress.setText(address);
+        // Menampilkan Tanggal Member (Data dari LoginActivity)
+        String date = sharedPreferences.getString("member_since", "Baru Bergabung");
+        tvMemberSince.setText("Member Sejak: " + date);
 
-        // Set info akun
-        if (tvMemberSince != null && tvTotalPurchase != null && tvStatus != null) {
-            tvMemberSince.setText("Member Sejak: Januari 2024");
-            tvTotalPurchase.setText("Total Pembelian: 5 Laptop");
-            tvStatus.setText("Status: Member Gold");
+        // Menampilkan Total Item di Keranjang
+        int cartCount = CartManager.getInstance(this).getCartItemCount();
+        tvTotalPurchase.setText("Laptop di Keranjang: " + cartCount);
+
+        // Load Foto Profil
+        String imageUri = sharedPreferences.getString("profile_image", null);
+        if (imageUri != null) {
+            Glide.with(this).load(Uri.parse(imageUri)).circleCrop().into(ivProfile);
         }
-    }
-
-    private void saveUserData() {
-        String name = etName.getText().toString().trim();
-        String phone = etPhone.getText().toString().trim();
-        String address = etAddress.getText().toString().trim();
-
-        if (name.isEmpty() || phone.isEmpty()) {
-            Toast.makeText(this, "Nama dan nomor HP wajib diisi", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (phone.length() < 10) {
-            Toast.makeText(this, "Nomor HP minimal 10 digit", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Simpan ke SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("user_name", name);
-        editor.putString("user_phone", phone);
-        editor.putString("user_address", address);
-        editor.apply();
-
-        Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
-    }
-
-    // Method untuk tombol back di XML
-    public void onBackClick(View view) {
-        finish();
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST && data != null) {
+            Uri imageUri = data.getData();
+            // Simpan URI foto ke SharedPreferences
+            sharedPreferences.edit().putString("profile_image", imageUri.toString()).apply();
+            // Tampilkan foto dengan Glide
+            Glide.with(this).load(imageUri).circleCrop().into(ivProfile);
+            Toast.makeText(this, "Foto profil diperbarui", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveData() {
+        sharedPreferences.edit()
+                .putString("user_name", etName.getText().toString())
+                .putString("user_phone", etPhone.getText().toString())
+                .putString("user_address", etAddress.getText().toString())
+                .apply();
+        Toast.makeText(this, "Profil disimpan!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onBackClick(View view) {
+        onBackPressed();
     }
 }

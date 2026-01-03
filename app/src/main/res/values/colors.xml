@@ -13,10 +13,14 @@
     <!-- Vendor Colors -->
     <color name="lenovo_color">#E2231A</color>
     <color name="asus_color">#00539B</color>
-    <color name="acer_color">#83B81A</color>
+    <color name="apple_color">#000000</color>
     <color name="dell_color">#007DB8</color>
     <color name="hp_color">#0096D6</color>
-    <color name="apple_color">#000000</color>
+    <color name="acer_color">#83B81A</color>
+    <color name="msi_color">#000000</color>
+    <color name="samsung_color">#1428A0</color>
+    <color name="microsoft_color">#00A4EF</color>
+    <color name="razer_color">#44D62C</color>
 
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
@@ -28,13 +32,17 @@
     <!-- Status Colors -->
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
-    <color name="yellow">#FFC107</color>
     <color name="gold">#FFD700</color>
 
     <!-- Dark Mode Colors -->
     <color name="dark_background">#121212</color>
     <color name="dark_surface">#1E1E1E</color>
     <color name="dark_surface_variant">#2D2D2D</color>
-    <color name="dark_on_surface">#FFFFFF</color>
-    <color name="dark_on_surface_variant">#B0B0B0</color>
+    <color name="dark_bg">#121212</color>
+
+
+    <!-- Transparent colors untuk logo container -->
+
+
+
 </resources>

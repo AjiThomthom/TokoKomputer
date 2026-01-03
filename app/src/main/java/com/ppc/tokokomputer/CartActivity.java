@@ -1,7 +1,9 @@
 package com.ppc.tokokomputer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,56 +11,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.button.MaterialButton;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import android.view.View;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.CartUpdateListener {
     private RecyclerView rvCartItems;
     private LinearLayout emptyState, cartContent;
-    private TextView tvSubtotal, tvTax, tvTotal, tvItemCount;
+    private TextView tvSubtotal, tvTax, tvTotal;
     private CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
     private CartManager cartManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Handle Tema
+        SharedPreferences sharedPref = getSharedPreferences("UserData", MODE_PRIVATE);
+        boolean isDarkMode = sharedPref.getBoolean("dark_mode", false);
+        setTheme(isDarkMode ? R.style.Theme_TokoKomputer_Dark : R.style.Theme_TokoKomputer);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        // Setup toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        // Initialize views
         initViews();
 
-        // Initialize cart manager
         cartManager = CartManager.getInstance(this);
-        cartItems = cartManager.getCartItems();
+        cartItems = new ArrayList<>(cartManager.getCartItems());
 
-        // Setup RecyclerView
-        setupRecyclerView();
+        rvCartItems.setLayoutManager(new LinearLayoutManager(this));
+        cartAdapter = new CartAdapter(this, cartItems, this);
+        rvCartItems.setAdapter(cartAdapter);
 
-        // Update cart summary
         updateCartSummary();
-
-        // Check empty state
         checkEmptyState();
-
-        // Setup checkout button
-        findViewById(R.id.btn_checkout).setOnClickListener(v -> {
-            if (cartItems.isEmpty()) {
-                Toast.makeText(this, "Keranjang masih kosong", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Fitur checkout akan segera hadir!", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void initViews() {
@@ -69,25 +61,27 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartU
         tvTax = findViewById(R.id.tv_tax);
         tvTotal = findViewById(R.id.tv_total);
 
-        // Setup empty state - langsung set click listener ke emptyState
-        emptyState.setOnClickListener(v -> {
-            finish(); // Kembali ke halaman sebelumnya
+        // FITUR: Tombol Mulai Belanja
+        MaterialButton btnShopNow = findViewById(R.id.btn_shop_now);
+        if (btnShopNow != null) {
+            btnShopNow.setOnClickListener(v -> {
+                Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("SHOW_WELCOME_MESSAGE", true);
+                startActivity(intent);
+                finish();
+            });
+        }
+
+        findViewById(R.id.btn_checkout).setOnClickListener(v -> {
+            Toast.makeText(this, "Pesanan Berhasil!", Toast.LENGTH_LONG).show();
         });
-    }
-
-    private void setupRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rvCartItems.setLayoutManager(layoutManager);
-
-        cartAdapter = new CartAdapter(this, cartItems, this);
-        rvCartItems.setAdapter(cartAdapter);
     }
 
     private void updateCartSummary() {
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-
         int subtotal = cartManager.getCartTotalPrice();
-        double tax = subtotal * 0.11; // 11% PPN
+        double tax = subtotal * 0.11;
         double total = subtotal + tax;
 
         tvSubtotal.setText(formatRupiah.format(subtotal));
@@ -107,29 +101,18 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.CartU
 
     @Override
     public void onCartUpdated() {
+        cartItems = new ArrayList<>(cartManager.getCartItems());
+        cartAdapter.updateCartItems(cartItems);
         updateCartSummary();
         checkEmptyState();
     }
 
     @Override
-    public void onItemRemoved(int position) {
-        // Item already removed in adapter
-    }
+    public void onItemRemoved(int position) {}
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Refresh cart data
-        cartItems = cartManager.getCartItems();
-        cartAdapter = new CartAdapter(this, cartItems, this);
-        rvCartItems.setAdapter(cartAdapter);
-        updateCartSummary();
-        checkEmptyState();
     }
 }

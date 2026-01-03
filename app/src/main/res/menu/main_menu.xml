@@ -6,6 +6,6 @@
         android:id="@+id/menu_cart"
         android:icon="@drawable/ic_cart"
         android:title="Keranjang"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 </menu>

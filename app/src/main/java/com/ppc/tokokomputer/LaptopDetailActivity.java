@@ -1,5 +1,7 @@
 package com.ppc.tokokomputer;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,8 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.bumptech.glide.Glide;
+import androidx.core.content.ContextCompat;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -22,50 +23,64 @@ public class LaptopDetailActivity extends AppCompatActivity {
     private TextView tvWeight, tvYear, tvPort, tvConnectivity, tvDetailDescription;
     private RatingBar ratingBarDetail;
     private Button btnAddToCart, btnBuyNow;
+
+    // Pastikan objek laptop ini terisi
     private Laptop laptop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 1. Cek Tema
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        boolean isDarkMode = sharedPreferences.getBoolean("dark_mode", false);
+        if (isDarkMode) {
+            setTheme(R.style.Theme_TokoKomputer_Dark);
+        } else {
+            setTheme(R.style.Theme_TokoKomputer);
+        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laptop_detail);
 
-        // Setup toolbar
+        // 2. AMBIL DATA DARI INTENT (Penting agar data tidak nol)
+        if (getIntent() != null) {
+            laptop = getIntent().getParcelableExtra("laptop");
+        }
+
+        // 3. Inisialisasi Toolbar & Views
+        setupToolbar();
+        initializeViews();
+
+        // 4. Tampilkan Data
+        if (laptop != null) {
+            displayLaptopDetails();
+        } else {
+            Toast.makeText(this, "Data laptop tidak ditemukan", Toast.LENGTH_SHORT).show();
+            finish(); // Tutup activity jika data kosong
+        }
+
+        setupButtonListeners();
+    }
+
+    private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Detail Laptop");
         }
-
-        // Dapatkan data laptop dari intent
-        laptop = (Laptop) getIntent().getSerializableExtra("laptop");
-
-        if (laptop == null) {
-            Toast.makeText(this, "Data laptop tidak ditemukan", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
-        // Inisialisasi semua view
-        initViews();
-
-        // Tampilkan data laptop
-        displayLaptopData();
-
-        // Setup button listeners
-        setupButtonListeners();
     }
 
-    private void initViews() {
+    private void initializeViews() {
         ivLaptopDetail = findViewById(R.id.iv_laptop_detail);
         tvDetailVendor = findViewById(R.id.tv_detail_vendor);
         tvDetailModel = findViewById(R.id.tv_detail_model);
-        ratingBarDetail = findViewById(R.id.rating_bar_detail);
         tvRatingDetail = findViewById(R.id.tv_rating_detail);
         tvStockDetail = findViewById(R.id.tv_stock_detail);
         tvDetailPrice = findViewById(R.id.tv_detail_price);
+        ratingBarDetail = findViewById(R.id.rating_bar_detail);
 
-        // Spesifikasi
         tvProcessor = findViewById(R.id.tv_processor);
         tvRam = findViewById(R.id.tv_ram);
         tvStorage = findViewById(R.id.tv_storage);
@@ -79,25 +94,25 @@ public class LaptopDetailActivity extends AppCompatActivity {
         tvConnectivity = findViewById(R.id.tv_connectivity);
         tvDetailDescription = findViewById(R.id.tv_detail_description);
 
-        // Buttons
         btnAddToCart = findViewById(R.id.btn_add_to_cart);
         btnBuyNow = findViewById(R.id.btn_buy_now);
     }
 
-    private void displayLaptopData() {
-        // Format harga ke Rupiah
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-        String harga = formatRupiah.format(laptop.getPrice());
-
-        // Set data dasar
+    private void displayLaptopDetails() {
+        // Tampilkan Teks
         tvDetailVendor.setText(laptop.getVendor());
         tvDetailModel.setText(laptop.getModel());
-        ratingBarDetail.setRating((float) laptop.getRating());
-        tvRatingDetail.setText(String.format("%.1f/5.0", laptop.getRating()));
-        tvStockDetail.setText("Stok: " + laptop.getStock());
-        tvDetailPrice.setText(harga);
 
-        // Set spesifikasi
+        // Format Harga (Cek jika harga > 0)
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        tvDetailPrice.setText(format.format(laptop.getPrice()));
+
+        tvRatingDetail.setText(String.valueOf(laptop.getRating()));
+        ratingBarDetail.setRating((float) laptop.getRating());
+        tvStockDetail.setText("Stok: " + laptop.getStock());
+
+        // Deskripsi & Spek
+        tvDetailDescription.setText(laptop.getDescription());
         tvProcessor.setText(laptop.getProcessor());
         tvRam.setText(laptop.getRam());
         tvStorage.setText(laptop.getStorage());
@@ -106,27 +121,34 @@ public class LaptopDetailActivity extends AppCompatActivity {
         tvOs.setText(laptop.getOs());
         tvBattery.setText(laptop.getBattery());
         tvWeight.setText(laptop.getWeight());
-        tvYear.setText(laptop.getYear());
+        tvYear.setText(String.valueOf(laptop.getYear()));
         tvPort.setText(laptop.getPort());
         tvConnectivity.setText(laptop.getConnectivity());
-        tvDetailDescription.setText(laptop.getDescription());
 
-        // Load gambar
-        Glide.with(this)
-                .load(R.drawable.ic_laptop_placeholder)
-                .placeholder(R.drawable.ic_laptop_placeholder)
-                .error(R.drawable.ic_error)
-                .into(ivLaptopDetail);
+        // --- BAGIAN GAMBAR ---
+        // Set warna background
+        int backgroundColor = ImageHelper.getLaptopBackgroundColor(laptop.getVendor());
+        ivLaptopDetail.setBackgroundColor(ContextCompat.getColor(this, backgroundColor));
+
+        // Load Gambar via ImageHelper
+        ImageHelper.loadLaptopImage(this, ivLaptopDetail, laptop);
     }
 
     private void setupButtonListeners() {
         btnAddToCart.setOnClickListener(v -> {
-            Toast.makeText(this, laptop.getModel() + " ditambahkan ke keranjang", Toast.LENGTH_SHORT).show();
+            if (laptop != null) {
+                CartManager.getInstance(this).addToCart(laptop);
+                Toast.makeText(this, laptop.getModel() + " ditambahkan ke keranjang", Toast.LENGTH_SHORT).show();
+                AnimHelper.bounce(btnAddToCart);
+            }
         });
 
         btnBuyNow.setOnClickListener(v -> {
-            Toast.makeText(this, "Membeli " + laptop.getModel(), Toast.LENGTH_SHORT).show();
-            // Di sini bisa diarahkan ke halaman checkout
+            if (laptop != null) {
+                CartManager.getInstance(this).addToCart(laptop);
+                Intent intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

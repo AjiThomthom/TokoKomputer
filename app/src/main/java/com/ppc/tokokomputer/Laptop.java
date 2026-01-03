@@ -1,8 +1,9 @@
 package com.ppc.tokokomputer;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Laptop implements Serializable {
+public class Laptop implements Parcelable {
     private String vendor;
     private String model;
     private double rating;
@@ -25,7 +26,7 @@ public class Laptop implements Serializable {
     public Laptop(String vendor, String model, double rating, int price, int stock,
                   String description, String processor, String ram, String storage,
                   String display, String graphics, String os, String battery,
-                  String weight, String year, String port, String connectivity) {
+                  String weight, String year, String port, String connectivity, String imageUrl) {
         this.vendor = vendor;
         this.model = model;
         this.rating = rating;
@@ -43,61 +44,85 @@ public class Laptop implements Serializable {
         this.year = year;
         this.port = port;
         this.connectivity = connectivity;
-        this.imageUrl = "";
+        this.imageUrl = imageUrl;
     }
 
-    // Getter dan Setter
+    // --- Implementasi Parcelable ---
+    protected Laptop(Parcel in) {
+        vendor = in.readString();
+        model = in.readString();
+        rating = in.readDouble();
+        price = in.readInt();
+        stock = in.readInt();
+        description = in.readString();
+        processor = in.readString();
+        ram = in.readString();
+        storage = in.readString();
+        display = in.readString();
+        graphics = in.readString();
+        os = in.readString();
+        battery = in.readString();
+        weight = in.readString();
+        year = in.readString();
+        port = in.readString();
+        connectivity = in.readString();
+        imageUrl = in.readString();
+    }
+
+    public static final Creator<Laptop> CREATOR = new Creator<Laptop>() {
+        @Override
+        public Laptop createFromParcel(Parcel in) {
+            return new Laptop(in);
+        }
+
+        @Override
+        public Laptop[] newArray(int size) {
+            return new Laptop[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(vendor);
+        dest.writeString(model);
+        dest.writeDouble(rating);
+        dest.writeInt(price);
+        dest.writeInt(stock);
+        dest.writeString(description);
+        dest.writeString(processor);
+        dest.writeString(ram);
+        dest.writeString(storage);
+        dest.writeString(display);
+        dest.writeString(graphics);
+        dest.writeString(os);
+        dest.writeString(battery);
+        dest.writeString(weight);
+        dest.writeString(year);
+        dest.writeString(port);
+        dest.writeString(connectivity);
+        dest.writeString(imageUrl);
+    }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    // --- Getters ---
     public String getVendor() { return vendor; }
-    public void setVendor(String vendor) { this.vendor = vendor; }
-
     public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
-
     public double getRating() { return rating; }
-    public void setRating(double rating) { this.rating = rating; }
-
     public int getPrice() { return price; }
-    public void setPrice(int price) { this.price = price; }
-
     public int getStock() { return stock; }
-    public void setStock(int stock) { this.stock = stock; }
-
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
     public String getProcessor() { return processor; }
-    public void setProcessor(String processor) { this.processor = processor; }
-
     public String getRam() { return ram; }
-    public void setRam(String ram) { this.ram = ram; }
-
     public String getStorage() { return storage; }
-    public void setStorage(String storage) { this.storage = storage; }
-
     public String getDisplay() { return display; }
-    public void setDisplay(String display) { this.display = display; }
-
     public String getGraphics() { return graphics; }
-    public void setGraphics(String graphics) { this.graphics = graphics; }
-
     public String getOs() { return os; }
-    public void setOs(String os) { this.os = os; }
-
     public String getBattery() { return battery; }
-    public void setBattery(String battery) { this.battery = battery; }
-
     public String getWeight() { return weight; }
-    public void setWeight(String weight) { this.weight = weight; }
-
     public String getYear() { return year; }
-    public void setYear(String year) { this.year = year; }
-
     public String getPort() { return port; }
-    public void setPort(String port) { this.port = port; }
-
     public String getConnectivity() { return connectivity; }
-    public void setConnectivity(String connectivity) { this.connectivity = connectivity; }
-
     public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

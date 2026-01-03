@@ -4,19 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background">
+    android:background="?android:attr/windowBackground">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_color"
+        android:background="?attr/colorPrimary"
         app:title="🛒 Keranjang Belanja"
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
-    <!-- Empty State -->
     <LinearLayout
         android:id="@+id/empty_state"
         android:layout_width="match_parent"
@@ -30,7 +28,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/ic_empty_cart"
-            android:tint="@color/gray"
+            android:tint="?attr/colorOnSurfaceVariant"
             android:layout_marginBottom="24dp" />
 
         <TextView
@@ -39,7 +37,7 @@
             android:text="Keranjang Belanjamu Masih Kosong"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/gray"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="8dp" />
 
         <TextView
@@ -47,20 +45,20 @@
             android:layout_height="wrap_content"
             android:text="Yuk, mulai berbelanja laptop impianmu!"
             android:textSize="14sp"
-            android:textColor="@color/light_gray"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:layout_marginBottom="32dp" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_shop_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mulai Belanja"
             android:textSize="16sp"
             app:cornerRadius="12dp"
-            app:backgroundTint="@color/primary_color" />
+            app:backgroundTint="?attr/colorPrimary" />
 
     </LinearLayout>
 
-    <!-- Cart Content -->
     <LinearLayout
         android:id="@+id/cart_content"
         android:layout_width="match_parent"
@@ -68,20 +66,20 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- Cart Items -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_cart_items"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:background="?android:attr/windowBackground" />
 
-        <!-- Order Summary -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
+            app:cardBackgroundColor="?attr/colorSurface"
             android:layout_margin="16dp">
 
             <LinearLayout
@@ -97,9 +95,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="16dp"
-                    android:textColor="@color/black" />
+                    android:textColor="?attr/colorOnSurface" />
 
-                <!-- Subtotal -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,7 +109,7 @@
                         android:layout_weight="1"
                         android:text="Subtotal"
                         android:textSize="14sp"
-                        android:textColor="@color/gray" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <TextView
                         android:id="@+id/tv_subtotal"
@@ -120,11 +117,10 @@
                         android:layout_height="wrap_content"
                         android:text="Rp 0"
                         android:textSize="14sp"
-                        android:textColor="@color/black" />
+                        android:textColor="?attr/colorOnSurface" />
 
                 </LinearLayout>
 
-                <!-- Shipping -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +133,7 @@
                         android:layout_weight="1"
                         android:text="Ongkir"
                         android:textSize="14sp"
-                        android:textColor="@color/gray" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <TextView
                         android:id="@+id/tv_shipping"
@@ -149,7 +145,6 @@
 
                 </LinearLayout>
 
-                <!-- Tax -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -162,7 +157,7 @@
                         android:layout_weight="1"
                         android:text="PPN (11%)"
                         android:textSize="14sp"
-                        android:textColor="@color/gray" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <TextView
                         android:id="@+id/tv_tax"
@@ -170,18 +165,17 @@
                         android:layout_height="wrap_content"
                         android:text="Rp 0"
                         android:textSize="14sp"
-                        android:textColor="@color/black" />
+                        android:textColor="?attr/colorOnSurface" />
 
                 </LinearLayout>
 
-                <!-- Divider -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_gray"
+                    android:background="?attr/colorOnSurfaceVariant"
+                    android:alpha="0.2"
                     android:layout_marginVertical="12dp" />
 
-                <!-- Total -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -195,7 +189,7 @@
                         android:text="Total"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/tv_total"
@@ -204,11 +198,10 @@
                         android:text="Rp 0"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primary_color" />
+                        android:textColor="?attr/colorPrimary" />
 
                 </LinearLayout>
 
-                <!-- Checkout Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_checkout"
                     android:layout_width="match_parent"
@@ -217,7 +210,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp"
-                    app:backgroundTint="@color/primary_color" />
+                    app:backgroundTint="?attr/colorPrimary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

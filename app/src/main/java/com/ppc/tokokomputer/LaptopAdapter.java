@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,32 +43,30 @@ public class LaptopAdapter extends RecyclerView.Adapter<LaptopAdapter.LaptopView
     @Override
     public void onBindViewHolder(@NonNull LaptopViewHolder holder, int position) {
         Laptop laptop = laptopList.get(position);
-
-        // Format harga ke Rupiah
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-        String harga = formatRupiah.format(laptop.getPrice());
-
-        // Set data ke view
         holder.tvVendor.setText(laptop.getVendor());
         holder.tvModel.setText(laptop.getModel());
         holder.ratingBar.setRating((float) laptop.getRating());
-        holder.tvRating.setText(String.format("%.1f", laptop.getRating()));
-        holder.tvPrice.setText(harga);
+        holder.tvRating.setText(String.valueOf(laptop.getRating()));
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        holder.tvPrice.setText(format.format(laptop.getPrice()));
         holder.tvStock.setText("Stok: " + laptop.getStock());
 
-        // Load gambar dengan Glide
-        Glide.with(context)
-                .load(R.drawable.ic_laptop_placeholder)
-                .placeholder(R.drawable.ic_laptop_placeholder)
-                .error(R.drawable.ic_error)
-                .into(holder.ivLaptop);
+        // Panggil helper tunggal
+        loadLaptopImage(holder.ivLaptop, laptop);
 
-        // Set click listener
+        // Click listener pada item
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(laptop);
-            }
+            if (listener != null) listener.onItemClick(laptop);
         });
+    }
+
+    private void loadLaptopImage(ImageView imageView, Laptop laptop) {
+        int backgroundColor = ImageHelper.getLaptopBackgroundColor(laptop.getVendor());
+        imageView.setBackgroundColor(ContextCompat.getColor(context, backgroundColor));
+
+        // HANYA panggil ImageHelper, jangan panggil Glide lagi di bawahnya!
+        ImageHelper.loadLaptopImage(context, imageView, laptop);
     }
 
     @Override

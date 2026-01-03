@@ -24,7 +24,7 @@ public class CartItem implements Serializable {
     public void setAddedDate(String addedDate) { this.addedDate = addedDate; }
 
     public int getTotalPrice() {
-        return laptop.getPrice() * quantity;
+        return (int) (laptop.getPrice() * quantity);
     }
 
     public void increaseQuantity() {

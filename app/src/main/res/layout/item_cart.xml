@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,17 +15,14 @@
         android:orientation="horizontal"
         android:padding="12dp">
 
-        <!-- Product Image -->
         <ImageView
             android:id="@+id/iv_laptop"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_laptop_placeholder"
-            android:background="@color/light_gray"
             android:layout_marginEnd="12dp" />
 
-        <!-- Product Info -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +37,7 @@
                 android:textSize="11sp"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="2dp"
-                android:background="@color/primary_color"
+                android:background="?attr/colorPrimary"
                 android:textColor="@color/white"
                 android:layout_marginBottom="4dp" />
 
@@ -52,7 +50,6 @@
                 android:textStyle="bold"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:textColor="@color/black"
                 android:layout_marginBottom="4dp" />
 
             <TextView
@@ -62,10 +59,9 @@
                 android:text="Rp 0"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/primary_color"
+                android:textColor="?attr/colorPrimary"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Quantity Controls -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,7 +74,6 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_minus"
-                    android:background="?selectableItemBackground"
                     android:padding="6dp" />
 
                 <TextView
@@ -88,31 +83,22 @@
                     android:text="1"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/black" />
+                    android:gravity="center" />
 
                 <ImageView
                     android:id="@+id/btn_increase"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/ic_plus"
-                    android:background="?selectableItemBackground"
                     android:padding="6dp" />
-
             </LinearLayout>
-
         </LinearLayout>
 
-        <!-- Delete Button -->
         <ImageView
             android:id="@+id/btn_delete"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/ic_delete"
-            android:tint="@color/red"
-            android:background="?selectableItemBackground"
             android:padding="6dp" />
-
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
